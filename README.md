@@ -7,7 +7,7 @@ This is the closest I could get to an user-experience similar to the `thiserror`
 In your `Cargo.toml`, add:
 
 ```
-wit-error-rs = { git = "https://github.com/danbugs/wit-error-rs", rev = "9d9acb34ce71d8270643c1a373dd72ff3d228d53" }
+wit-error-rs = { git = "https://github.com/danbugs/wit-error-rs", rev = "05362f1a4a3a9dc6a1de39195e06d2d5d6491a5e" }
 ```
 
 If, in your wit, you have type that you want to classify as an Error type (i.e., should implement `std::error::Error`), like:
