@@ -11,17 +11,46 @@ wit_error_rs::impl_from!(anyhow::Error, hello_world::Error::ErrorWithDescription
 //         hello_world::Error::ErrorWithDescription(err.to_string())
 //     }
 // }
+wit_error_rs::impl_from!(MyError, hello_world::Error::ErrorWithDescription);
+
+pub enum MyError {
+    ErrorWithDescription(String)
+}
+
+impl std::fmt::Debug for MyError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            MyError::ErrorWithDescription(e) => f
+                .debug_tuple("MyError::ErrorWithDescription")
+                .field(e)
+                .finish()
+        }    }
+}
+
+impl std::fmt::Display for MyError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{:?}", &self)
+    }
+}
+
+impl std::error::Error for MyError {}
 
 pub struct HelloWorld;
 
 impl hello_world::HelloWorld for HelloWorld {
     fn cause_error() -> Result<(), hello_world::Error> {
-        Ok(cause_anyhow_error()?)
+        let err = cause_my_error();
+        Ok(err?)
+        // Ok(cause_anyhow_error()?)
     }
 }
 
 fn cause_anyhow_error() -> Result<()> {
     bail!("cause_anyhow_error caused an error");
+}
+
+fn cause_my_error() -> Result<(), MyError> {
+    Err(MyError::ErrorWithDescription("cause_my_error caused an error".to_string()))
 }
 
 #[cfg(test)]
@@ -35,9 +64,9 @@ mod tests {
         // vvv could have assert but want to see what this looks like failing
         // assert!(matches!(
         //     crate::hello_world::Error::ErrorWithDescription(
-        //         "cause_anyhow_error caused an error".to_string()
+        //         "cause_my_error caused an error".to_string()
         //     ),
-        //     err
+        //     _err
         // ));
         Ok(())
     }

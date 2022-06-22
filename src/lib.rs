@@ -5,7 +5,7 @@ use syn::{parse, parse_str, Type};
 #[proc_macro]
 pub fn impl_from(input: TokenStream) -> TokenStream {
     // vvv this is dirty but looks better than matching Punct
-    let input_as_string: String = input.to_string().split_whitespace().collect();
+    let input_as_string: String = input.to_string();
     let input_as_vec_str: Vec<&str> = input_as_string.split(",").collect();
     let from_error = parse_str::<Type>(input_as_vec_str[0]).unwrap();
     let for_error_full = parse_str::<Type>(input_as_vec_str[1]).unwrap();
@@ -27,7 +27,7 @@ pub fn impl_error(input: TokenStream) -> TokenStream {
     TokenStream::from(quote! {
         impl std::fmt::Display for #for_error {
             fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
-                write!(f, "{}", &self)
+                write!(f, "{:?}", &self)
             }
         }
 
