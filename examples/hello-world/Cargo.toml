@@ -1,0 +1,13 @@
+[package]
+name = "hello-world"
+version = "0.1.0"
+edition = "2021"
+authors = ["Dan Chiarlone <danilochiarlone@hotmail.com"]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+wit-bindgen-rust = { git = "https://github.com/bytecodealliance/wit-bindgen" }
+rand = "0.8.5"
+anyhow = "1"
+wit-error-rs = { path = "../.." }

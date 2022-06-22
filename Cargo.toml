@@ -1,0 +1,19 @@
+[package]
+name = "wit-error-rs"
+version = "0.1.0"
+edition = "2021"
+authors = ["Dan Chiarlone <danilochiarlone@hotmail.com"]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+proc-macro = true
+
+[dependencies]
+syn = "1"
+quote = "1"
+
+[workspace]
+members = [
+    "examples/hello-world"
+]

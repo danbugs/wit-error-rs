@@ -1,0 +1,7 @@
+variant error {
+    error-with-description(string)
+}
+
+type payload = string
+
+cause-error: func() -> expected<unit, error>
